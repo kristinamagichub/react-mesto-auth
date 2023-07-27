@@ -106,7 +106,7 @@ function App() {
           setUserEmail(res.data.email)
           setIsLoggedIn(true)
           setIsCheckToken(false)
-          navigate('/')
+
         })
         .catch((err) => console.error(`Ошибка авторизации при входе ${err}`))
     } else {
@@ -114,7 +114,7 @@ function App() {
 
       setIsCheckToken(false)
     }
-  }, [navigate])
+  }, [])
 
 
   const handleEditProfileClick = useCallback(() => {

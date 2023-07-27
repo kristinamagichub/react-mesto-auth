@@ -1,6 +1,6 @@
 //функционалбный компонент для блока Header
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../../images/header-logo.svg'
 
@@ -20,20 +20,7 @@ function Header({ name, dataUser }) {
         localStorage.removeItem('jwt')
     }
 
-    //для нормального отображения на экране при повороте телефона
-    useEffect(() => {
-        function closeHumburgerToResize() {
 
-            if (isToggled === true) {
-                window.addEventListener('resize', closeHumburgerToResize);
-                return () => window.removeEventListener('resize', closeHumburgerToResize); // cобытие resize kak escape 
-            }
-        }
-        if (document.documentElement.clientWidth > '767') {
-            setIsToggled(false);
-            window.removeEventListener('resize', closeHumburgerToResize);
-        }
-    }, [isToggled])
 
 
     return (

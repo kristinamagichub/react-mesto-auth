@@ -3,13 +3,14 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../../images/header-logo.svg'
+import useFormValidation from "../../utils/useFormValidation"
 
 
 
 //для хамбургера/ 
 function Header({ name, dataUser }) {
     const [isToggled, setIsToggled] = useState(false);
-
+    const { reset } = useFormValidation()
 
 
     function handleClick() {
@@ -17,7 +18,8 @@ function Header({ name, dataUser }) {
     }
     function onSignOut() {
         setIsToggled(false);
-        localStorage.removeItem('jwt')
+        localStorage.removeItem('jwt');
+        reset({});
     }
 
 

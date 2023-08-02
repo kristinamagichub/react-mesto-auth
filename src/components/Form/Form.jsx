@@ -18,7 +18,7 @@ export default function Form({ name, titleButton, isValid, onSubmit, children })
                 :
 
 
-                <button className={`popup__button-save ${isSend ? 'popup__button-save_loading' : ''} ${isValid ? '' : 'popup__button-save_disable'}`}>
+                <button disabled={!isValid} className={`popup__button-save ${isSend ? 'popup__button-save_loading' : ''} ${isValid ? '' : 'popup__button-save_disable'}`}>
                     {isSend ? '' : titleButton || 'Сохранить'}
                 </button>
             }

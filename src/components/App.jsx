@@ -106,14 +106,14 @@ function App() {
           setUserEmail(res.data.email)
           setIsLoggedIn(true)
           setIsCheckToken(false)
-
+          navigate('/')
         })
         .catch((err) => console.error(`Ошибка авторизации при входе ${err}`))
     } else {
       setIsLoggedIn(false)
-
       setIsCheckToken(false)
     }
+    // eslint-disable-next-line
   }, [])
 
 

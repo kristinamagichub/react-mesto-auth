@@ -21,7 +21,7 @@ import InfoTooltip from "./InfoTooltip/InfoTooltip.jsx";
 
 
 function App() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // states for popups
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
@@ -41,7 +41,7 @@ function App() {
 
   // state for context
   const [currentUser, setCurrentUser] = useState({})
-  const [userEmail, setUserEmail] = useState(' ')
+  const [userEmail, setUserEmail] = useState('')
 
   // states for card
   const [cards, setCards] = useState([]) //cards -массив карточек
@@ -98,24 +98,30 @@ function App() {
     }
   }, [isOpen, closeAllPopups])
 
-
-  useEffect(() => {
+  function authorize() {
     if (localStorage.jwt) {
       getUserData(localStorage.jwt)
         .then(res => {
-          setUserEmail(res.data.email)
-          setIsLoggedIn(true)
-          setIsCheckToken(false)
-          navigate('/')
+          setUserEmail(res.data.email);
+          setIsLoggedIn(true);
+          setIsCheckToken(false);
+          navigate('/');
         })
-        .catch((err) => console.error(`Ошибка авторизации при входе ${err}`))
+        .catch((err) => console.error(`Ошибка авторизации при входе ${err}`));
     } else {
-      setIsLoggedIn(false)
-      setIsCheckToken(false)
+      setIsLoggedIn(false);
+      setIsCheckToken(false);
     }
-    // eslint-disable-next-line
+  }
+
+  useEffect(() => {
+    authorize();
   }, [])
 
+  const handleLogout = () => {
+    setIsLoggedIn(false)
+    setUserEmail('');
+  }
 
   const handleEditProfileClick = useCallback(() => {
     setIsEditProfilePopupOpen(true)
@@ -215,11 +221,12 @@ function App() {
 
 
   function handleLogin(password, email) {
-    setIsSend(true)
+    setIsSend(true);
     authorization(password, email)
       .then(res => {
         localStorage.setItem('jwt', res.token)
         setIsLoggedIn(true)
+        setUserEmail(email)
         navigate('/')
         window.scrollTo(0, 0)
       })
@@ -271,8 +278,12 @@ function App() {
               onCardLike={handleCardLike}
               isCheckToken={isCheckToken}
               isLoggedIn={isLoggedIn}
+
+              onLogout={handleLogout}
             />
             } />
+
+
 
             <Route path='/sign-up' element={
               <>

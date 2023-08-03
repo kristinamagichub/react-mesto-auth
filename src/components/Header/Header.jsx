@@ -3,25 +3,26 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../../images/header-logo.svg'
-import useFormValidation from "../../utils/useFormValidation"
+
 
 
 
 //для хамбургера/ 
-function Header({ name, dataUser }) {
+function Header({ name, dataUser, onLogout }) {
     const [isToggled, setIsToggled] = useState(false);
-    const { reset } = useFormValidation()
+
+
 
 
     function handleClick() {
         isToggled === false ? setIsToggled(true) : setIsToggled(false);
     }
-    function onSignOut() {
+    function onSignOut(e) {
+        e.preventDefault();
         setIsToggled(false);
+        onLogout();
         localStorage.removeItem('jwt');
-        reset({});
     }
-
 
 
 
@@ -42,7 +43,7 @@ function Header({ name, dataUser }) {
                 <>
                     <div className={`header__email-container ${isToggled !== false ? 'header__email-container_opened' : ''}`}>
                         <p className='header__email'  >{dataUser}</p>
-                        <Link to={`/sign-in`} className='header__unlogin' onClick={onSignOut}>Выйти</Link>
+                        <Link to="/sign-in" className='header__unlogin' onClick={onSignOut}>Выйти</Link>
                     </div>
                     <button className={`header__button ${isToggled !== false ? 'header__button_active' : ''} `} onClick={handleClick}></button>
                 </>
